@@ -1,21 +1,23 @@
-{
-  "name": "Windows 10 no Codespaces",
-  "dockerComposeFile": "docker-compose.yml",
-  "service": "windows10",
-  "workspaceFolder": "/workspace",
-  
-  // Encaminha a porta solicitada para acesso local/externo
-  "forwardPorts": [8009],
-  
-  // Configurações para manter a porta aberta e identificada
-  "portsAttributes": {
-    "8009": {
-      "label": "Acesso Windows 10",
-      "onAutoForward": "notify",
-      "visibility": "public"
-    }
-  },
+version: '3.8'
 
-  // Script em segundo plano executado na inicialização para simular atividade e evitar timeout
-  "postCreateCommand": "bash -c 'while true; do echo \"Mantendo ativo: $(date)\"; sleep 60; done &'"
-}
+services:
+  local-codespace:
+    image: ://microsoft.com
+    container_name: high_perf_codespace
+    volumes:
+      - ..:/workspace:cached
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+    # Atribui os recursos de Hardware solicitados (RTX 3060 + RAM)
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+        limits:
+          memory: 32gb
+    # Mantém o contêiner rodando em segundo plano
+    command: sleep infinity
