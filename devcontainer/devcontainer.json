@@ -1,0 +1,21 @@
+{
+  "name": "Windows 11 no Codespaces",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "windows11",
+  "workspaceFolder": "/workspace",
+  
+  // Encaminha a porta solicitada para acesso local/externo
+  "forwardPorts": [8009],
+  
+  // Configurações para manter a porta aberta e identificada
+  "portsAttributes": {
+    "8009": {
+      "label": "Acesso Windows 11",
+      "onAutoForward": "notify",
+      "visibility": "public"
+    }
+  },
+
+  // Script em segundo plano executado na inicialização para simular atividade e evitar timeout
+  "postCreateCommand": "bash -c 'while true; do echo \"Mantendo ativo: $(date)\"; sleep 60; done &'"
+}
