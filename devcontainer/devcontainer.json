@@ -1,7 +1,7 @@
 {
-  "name": "Windows 11 no Codespaces",
+  "name": "Windows 10 no Codespaces",
   "dockerComposeFile": "docker-compose.yml",
-  "service": "windows11",
+  "service": "windows10",
   "workspaceFolder": "/workspace",
   
   // Encaminha a porta solicitada para acesso local/externo
@@ -10,7 +10,7 @@
   // Configurações para manter a porta aberta e identificada
   "portsAttributes": {
     "8009": {
-      "label": "Acesso Windows 11",
+      "label": "Acesso Windows 10",
       "onAutoForward": "notify",
       "visibility": "public"
     }
