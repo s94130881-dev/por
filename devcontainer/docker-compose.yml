@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  windows11:
+    image: dockurr/windows
+    container_name: win11_codespace
+    environment:
+      VERSION: "11"
+      # Ajustado para consumir os recursos da máquina virtual do Codespaces
+      RAM_SIZE: "8G"
+      DISK_SIZE: "210G"
+    devices:
+      - /dev/kvm:/dev/kvm
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - "8009:8006" # Mapeia a porta interna do sistema (VNC/RDP Web) para a porta 8009 externa
+    volumes:
+      - win_data:/storage
+    restart: always
+
+volumes:
+  win_data:
